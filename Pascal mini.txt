@@ -1,0 +1,95 @@
+Руководство по программированию на языке Pascal
+
+Введение
+
+Pascal — это высокоуровневый язык программирования, разработанный Никлаусом Виртом в 1970 году. Он был создан для упрощения процесса обучения программированию и структурированного подхода к разработке программ. Pascal популярен благодаря своей простоте и четкому синтаксису.
+
+Преимущества Pascal:
+
+Простота и читаемость кода
+Статическая типизация данных
+Поддержка процедур и функций
+Возможности структурированного программирования
+Основы синтаксиса
+
+Структура программы
+
+Каждая программа на Pascal начинается с ключевого слова program и заканчивается оператором end.
+
+Пример программы: program HelloWorld; begin writeln('Hello, World!'); end.
+
+Комментарии
+
+Для добавления комментариев в код используется символ {} либо (* *) или //.
+
+Пример комментариев: { Это многострочный комментарий } (* Еще один вариант комментария *) // Однострочный комментарий
+
+Переменные
+
+Для объявления переменных используется ключевое слово var.
+
+Пример: var x: Integer; y: Real; name: String; begin x := 10; y := 3.14; name := 'Pascal'; end.
+
+Типы данных
+
+Pascal поддерживает следующие основные типы данных: Integer - целые числа, например, 1, -5, 42 Real - вещественные числа, например, 3.14, -0.5 Char - символы, например, 'A', 'b' String - строки, например, 'Hello' Boolean - логические значения True и False
+
+Управляющие конструкции
+
+Условные операторы if else
+
+Пример: var age: Integer; begin age := 18; if age >= 18 then writeln('Взрослый') else writeln('Ребенок'); end.
+
+Оператор case
+
+Используется для многовариантного выбора.
+
+Пример: var grade: Char; begin grade := 'A'; case grade of 'A': writeln('Отлично'); 'B': writeln('Хорошо'); 'C': writeln('Удовлетворительно'); else writeln('Неудовлетворительно'); end; end.
+
+Циклы for while repeat
+
+Цикл for: var i: Integer; begin for i := 1 to 5 do writeln(i); end.
+
+Цикл while: var i: Integer; begin i := 1; while i <= 5 do begin writeln(i); i := i + 1; end; end.
+
+Цикл repeat: var i: Integer; begin i := 1; repeat writeln(i); i := i + 1; until i > 5; end.
+
+Процедуры и функции
+
+Процедуры используются для выполнения набора инструкций.
+
+Пример процедуры: procedure Greet; begin writeln('Привет!'); end; begin Greet; end.
+
+Функции возвращают значение.
+
+Пример функции: function Sum(a, b: Integer): Integer; begin Sum := a + b; end; begin writeln(Sum(5, 3)); end.
+
+Работа с массивами
+
+Массивы позволяют хранить несколько значений одного типа.
+
+Пример: var numbers: array[1..5] of Integer; i: Integer; begin for i := 1 to 5 do numbers[i] := i * 2; for i := 1 to 5 do writeln(numbers[i]); end.
+
+Ввод и вывод данных
+
+Для ввода и вывода данных используются операторы read, readln, write и writeln.
+
+Пример: var name: String; begin write('Введите ваше имя: '); readln(name); writeln('Привет, ', name); end.
+
+Работа с файлами
+
+Запись в файл: var f: Text; begin assign(f, 'output.txt'); rewrite(f); writeln(f, 'Текст в файле'); close(f); end.
+
+Чтение из файла: var f: Text; line: String; begin assign(f, 'input.txt'); reset(f); while not eof(f) do begin readln(f, line); writeln(line); end; close(f); end.
+
+Примеры программ
+
+Пример 1: Определение четного или нечетного числа: var num: Integer; begin write('Введите число: '); readln(num); if num mod 2 = 0 then writeln('Четное') else writeln('Нечетное'); end.
+
+Пример 2: Простое калькуляторное приложение: var a, b: Real; op: Char; begin write('Введите первое число: '); readln(a); write('Введите оператор (+, -, , /): '); readln(op); write('Введите второе число: '); readln(b); case op of '+': writeln('Результат: ', a + b); '-': writeln('Результат: ', a - b); '': writeln('Результат: ', a * b); '/': if b <> 0 then writeln('Результат: ', a / b) else writeln('Деление на ноль невозможно'); else writeln('Неверный оператор'); end; end.
+
+Заключение
+
+Pascal — это мощный язык для изучения основ программирования. Он позволяет изучить структурированное программирование, разбираться в типах данных и алгоритмах.
+
+Полезные ссылки: Документация Free Pascal: freepascal.org/docs.var Учебные материалы по Pascal: pascalabc.net

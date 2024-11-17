@@ -1,0 +1,134 @@
+Руководство по Prisma JS
+
+Prisma JS — это современный инструмент для работы с базами данных в Node.js. Он облегчает написание, чтение и управление данными, предлагая декларативный подход и автоматическую генерацию типизированного API.
+
+Основные возможности Prisma:
+
+Типизированный клиент для работы с базой данных: генерирует клиент с полной типизацией для всех операций.
+Удобное моделирование данных (Data Modeling): использует декларативный язык Prisma Schema для описания структуры данных.
+Миграции базы данных: позволяет легко синхронизировать структуру базы данных с моделями.
+Совместимость с популярными базами данных: поддерживает PostgreSQL, MySQL, SQLite, SQL Server, MongoDB и CockroachDB.
+Интуитивно понятный API: методы для CRUD-операций, фильтрации, сортировки, связей и транзакций.
+Автогенерация документации и поддержки IDE: помогает ускорить разработку благодаря автозаполнению кода и подсказкам.
+Установка Prisma
+
+Для начала необходимо установить Prisma в проект.
+
+Установка через npm или yarn:
+npm install prisma --save-dev
+npx prisma init
+
+Установить Prisma Client:
+npm install @prisma/client
+
+После установки создается файл prisma/schema.prisma, где можно описывать модели данных.
+
+Структура schema.prisma
+
+Файл schema.prisma содержит три ключевые части:
+
+Datasource — подключение к базе данных:
+datasource db {
+provider = "postgresql"
+url = env("DATABASE_URL")
+}
+
+Generator — генерация Prisma Client:
+generator client {
+provider = "prisma-client-js"
+}
+
+Модели данных:
+model User {
+id Int @id @default(autoincrement())
+name String
+email String @unique
+posts Post[]
+}
+
+model Post {
+id Int @id @default(autoincrement())
+title String
+content String?
+authorId Int
+author User @relation(fields: [authorId], references: [id])
+}
+
+Основные команды Prisma CLI
+
+Инициализация:
+npx prisma init
+
+Применение миграций:
+npx prisma migrate dev --name имя_миграции
+
+Генерация клиента:
+npx prisma generate
+
+Просмотр базы данных (Prisma Studio):
+npx prisma studio
+
+CRUD-операции с Prisma Client
+
+Пример использования клиента для работы с базой данных:
+
+Создание записи
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+async function main() {
+const newUser = await prisma.user.create({
+data: {
+name: "Иван",
+email: "ivan@example.com",
+},
+});
+console.log(newUser);
+}
+
+main()
+.catch((e) => console.error(e))
+.finally(async () => await prisma.$disconnect());
+
+Чтение данных
+const users = await prisma.user.findMany({
+include: { posts: true },
+});
+console.log(users);
+
+Обновление данных
+const updatedUser = await prisma.user.update({
+where: { id: 1 },
+data: { email: "newemail@example.com" },
+});
+console.log(updatedUser);
+
+Удаление данных
+const deletedUser = await prisma.user.delete({
+where: { id: 1 },
+});
+console.log(deletedUser);
+
+Полезные функции Prisma
+
+Связи (Relations): простая настройка 1 к 1, 1 ко многим или многие ко многим.
+
+Фильтры и сортировка:
+const posts = await prisma.post.findMany({
+where: { title: { contains: "Пример" } },
+orderBy: { createdAt: 'desc' },
+});
+
+Транзакции:
+await prisma.$transaction([
+prisma.user.create({ data: { name: "Алекс" } }),
+prisma.post.create({ data: { title: "Новая статья", content: "..." } }),
+]);
+
+Работа с необязательными полями: используйте ? в модели или API для обозначения необязательных полей.
+
+Полезные ссылки
+
+Документация Prisma: https://www.prisma.io/docs/
+Примеры проектов: https://github.com/prisma/prisma-examples
+Сообщество Prisma: https://www.prisma.io/community
+Поздравляю! Теперь у вас есть базовые знания для работы с Prisma JS. Начните использовать этот мощный инструмент уже сегодня!
